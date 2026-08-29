@@ -3204,6 +3204,46 @@ function App() {
     0
   );
 
+  /* ================================= */
+  /* PRECIO SEGÚN LADOS PERSONALIZADOS */
+  /* ================================= */
+
+  const RECARGO_DOBLE_ESTAMPA = 0.2;
+
+  const ladoTieneDiseno = (lado) => {
+    const personalizacion = personalizaciones?.[lado];
+    const capasLado = capas?.[lado];
+
+    const tieneImagen =
+      Boolean(personalizacion?.imagen) &&
+      capasLado?.imagen?.visible !== false;
+
+    const tieneTexto =
+      Boolean(personalizacion?.texto?.contenido?.trim()) &&
+      capasLado?.texto?.visible !== false;
+
+    return tieneImagen || tieneTexto;
+  };
+
+  const tieneDisenoFrente = ladoTieneDiseno("frente");
+  const tieneDisenoEspalda = ladoTieneDiseno("espalda");
+  const tieneDobleEstampa = tieneDisenoFrente && tieneDisenoEspalda;
+
+  const calcularPrecioPersonalizado = (precioBase) => {
+    const base = Number(precioBase || 0);
+
+    if (!tieneDobleEstampa) {
+      return base;
+    }
+
+    // Se redondea hacia arriba a decenas para garantizar como mínimo +20%.
+    return Math.ceil((base * (1 + RECARGO_DOBLE_ESTAMPA)) / 10) * 10;
+  };
+
+  const precioPersonalizadoActual = productoSeleccionado
+    ? calcularPrecioPersonalizado(productoSeleccionado.precio)
+    : 0;
+
   const modelosCarrito = carrito.length;
 
   const colorClase = (color) =>
@@ -3701,11 +3741,7 @@ function App() {
   };
 
   const agregarAlCarrito = () => {
-    const tieneDiseno =
-      Boolean(personalizaciones.frente.imagen) ||
-      Boolean(personalizaciones.espalda.imagen) ||
-      Boolean(personalizaciones.frente.texto?.contenido.trim()) ||
-      Boolean(personalizaciones.espalda.texto?.contenido.trim());
+    const tieneDiseno = tieneDisenoFrente || tieneDisenoEspalda;
 
     if (
       !productoSeleccionado ||
@@ -3732,7 +3768,12 @@ function App() {
           "espalda"
         ),
       },
-      precio: productoSeleccionado.precio,
+      precio: precioPersonalizadoActual,
+      precioBase: productoSeleccionado.precio,
+      dobleEstampa: tieneDobleEstampa,
+      recargoDobleEstampa: tieneDobleEstampa
+        ? RECARGO_DOBLE_ESTAMPA
+        : 0,
       color: colorSeleccionado,
       talle: talleSeleccionado,
       disenos: {
@@ -5300,7 +5341,7 @@ function App() {
 
                   <strong>
                     {formatearPrecio(
-                      productoSeleccionado.precio
+                      precioPersonalizadoActual
                     )}
                   </strong>
                 </div>
@@ -5881,12 +5922,19 @@ function App() {
                   </strong>
                 </div>
 
+                {tieneDobleEstampa && (
+                  <div>
+                    <span>Recargo</span>
+                    <strong>Frente + espalda · +20%</strong>
+                  </div>
+                )}
+
                 <div className="summary-total">
                   <span>Total</span>
 
                   <strong>
                     {formatearPrecio(
-                      productoSeleccionado.precio
+                      precioPersonalizadoActual
                     )}
                   </strong>
                 </div>
@@ -5958,6 +6006,10 @@ function App() {
                   productoSeleccionado.precio
                 )}
               </div>
+
+              <p className="product-detail-description">
+                Personalización en 1 lado incluida · Frente + espalda: +20%
+              </p>
 
               <div className="product-option">
                 <div className="option-title">
