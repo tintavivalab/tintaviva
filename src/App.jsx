@@ -3204,46 +3204,6 @@ function App() {
     0
   );
 
-  /* ================================= */
-  /* PRECIO SEGÚN LADOS PERSONALIZADOS */
-  /* ================================= */
-
-  const RECARGO_DOBLE_ESTAMPA = 0.2;
-
-  const ladoTieneDiseno = (lado) => {
-    const personalizacion = personalizaciones?.[lado];
-    const capasLado = capas?.[lado];
-
-    const tieneImagen =
-      Boolean(personalizacion?.imagen) &&
-      capasLado?.imagen?.visible !== false;
-
-    const tieneTexto =
-      Boolean(personalizacion?.texto?.contenido?.trim()) &&
-      capasLado?.texto?.visible !== false;
-
-    return tieneImagen || tieneTexto;
-  };
-
-  const tieneDisenoFrente = ladoTieneDiseno("frente");
-  const tieneDisenoEspalda = ladoTieneDiseno("espalda");
-  const tieneDobleEstampa = tieneDisenoFrente && tieneDisenoEspalda;
-
-  const calcularPrecioPersonalizado = (precioBase) => {
-    const base = Number(precioBase || 0);
-
-    if (!tieneDobleEstampa) {
-      return base;
-    }
-
-    // Se redondea hacia arriba a decenas para garantizar como mínimo +20%.
-    return Math.ceil((base * (1 + RECARGO_DOBLE_ESTAMPA)) / 10) * 10;
-  };
-
-  const precioPersonalizadoActual = productoSeleccionado
-    ? calcularPrecioPersonalizado(productoSeleccionado.precio)
-    : 0;
-
   const modelosCarrito = carrito.length;
 
   const colorClase = (color) =>
@@ -3740,8 +3700,34 @@ function App() {
     });
   };
 
+  const tienePersonalizacionVisible = (lado) => {
+    const diseno = personalizaciones[lado] || {};
+    const capasLado = capas?.[lado] || {};
+
+    const tieneImagen =
+      Boolean(diseno.imagen) && capasLado?.imagen?.visible !== false;
+
+    const tieneTexto =
+      Boolean(diseno.texto?.contenido?.trim()) &&
+      capasLado?.texto?.visible !== false;
+
+    return tieneImagen || tieneTexto;
+  };
+
+  const tieneDobleEstampa =
+    tienePersonalizacionVisible("frente") &&
+    tienePersonalizacionVisible("espalda");
+
+  const precioPersonalizadoActual = productoSeleccionado
+    ? tieneDobleEstampa
+      ? Math.round((productoSeleccionado.precio * 1.2) / 10) * 10
+      : productoSeleccionado.precio
+    : 0;
+
   const agregarAlCarrito = () => {
-    const tieneDiseno = tieneDisenoFrente || tieneDisenoEspalda;
+    const tieneDiseno =
+      tienePersonalizacionVisible("frente") ||
+      tienePersonalizacionVisible("espalda");
 
     if (
       !productoSeleccionado ||
@@ -3769,11 +3755,6 @@ function App() {
         ),
       },
       precio: precioPersonalizadoActual,
-      precioBase: productoSeleccionado.precio,
-      dobleEstampa: tieneDobleEstampa,
-      recargoDobleEstampa: tieneDobleEstampa
-        ? RECARGO_DOBLE_ESTAMPA
-        : 0,
       color: colorSeleccionado,
       talle: talleSeleccionado,
       disenos: {
@@ -5341,7 +5322,7 @@ function App() {
 
                   <strong>
                     {formatearPrecio(
-                      precioPersonalizadoActual
+                      productoSeleccionado.precio
                     )}
                   </strong>
                 </div>
@@ -5922,19 +5903,12 @@ function App() {
                   </strong>
                 </div>
 
-                {tieneDobleEstampa && (
-                  <div>
-                    <span>Recargo</span>
-                    <strong>Frente + espalda · +20%</strong>
-                  </div>
-                )}
-
                 <div className="summary-total">
                   <span>Total</span>
 
                   <strong>
                     {formatearPrecio(
-                      precioPersonalizadoActual
+                      productoSeleccionado.precio
                     )}
                   </strong>
                 </div>
@@ -6003,13 +5977,15 @@ function App() {
 
               <div className="detail-price">
                 {formatearPrecio(
-                  productoSeleccionado.precio
+                  modoPersonalizar
+                    ? precioPersonalizadoActual
+                    : productoSeleccionado.precio
                 )}
               </div>
 
-              <p className="product-detail-description">
-                Personalización en 1 lado incluida · Frente + espalda: +20%
-              </p>
+              {modoPersonalizar && tieneDobleEstampa && (
+                <p className="product-help">Frente + espalda · +20%</p>
+              )}
 
               <div className="product-option">
                 <div className="option-title">
