@@ -52,11 +52,18 @@ function MayoristasPage() {
   });
 
   const elegirCategoria = (titulo) => {
-    setForm((actual) => ({ ...actual, tipo: titulo }));
+    setForm((actual) => ({
+      ...actual,
+      tipo: titulo,
+    }));
+
     window.setTimeout(() => {
       document
         .getElementById("presupuesto")
-        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        ?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
     }, 50);
   };
 
@@ -64,7 +71,9 @@ function MayoristasPage() {
     event.preventDefault();
 
     if (!WHATSAPP_NUMBER) {
-      alert("Configurá VITE_WHATSAPP_NUMBER en el .env del frontend.");
+      alert(
+        "Configurá VITE_WHATSAPP_NUMBER en el .env del frontend."
+      );
       return;
     }
 
@@ -89,16 +98,31 @@ function MayoristasPage() {
       mensaje
     )}`;
 
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.open(
+      url,
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
 
   return (
     <div className="wholesale-page">
       <header className="wholesale-topbar">
-        <a href="/" className="wholesale-brand" aria-label="TintaViva inicio">
-          <img src="/logo-tintaviva.png" alt="TintaViva" />
+        <a
+          href="/"
+          className="wholesale-brand"
+          aria-label="TintaViva inicio"
+        >
+          <img
+            src="/logo-tintaviva.png"
+            alt="TintaViva"
+          />
         </a>
-        <a href="/" className="wholesale-back">
+
+        <a
+          href="/"
+          className="wholesale-back"
+        >
           ← Volver a la tienda
         </a>
       </header>
@@ -109,14 +133,22 @@ function MayoristasPage() {
             <span className="wholesale-kicker">
               TINTAVIVA PARA EQUIPOS Y NEGOCIOS
             </span>
-            <h1>Pedidos por cantidad. Diseños que representan a tu grupo.</h1>
+
+            <h1>
+              Pedidos por cantidad. Diseños que representan a tu grupo.
+            </h1>
+
             <p>
-              Remeras y buzos personalizados para egresados, empresas,
-              gastronomía, comercios, eventos, clubes y equipos.
+              Remeras y buzos personalizados para egresados,
+              empresas, gastronomía, comercios, eventos, clubes y
+              equipos.
             </p>
 
             <div className="wholesale-actions">
-              <a href="#presupuesto">Pedir presupuesto</a>
+              <a href="#presupuesto">
+                Pedir presupuesto
+              </a>
+
               {WHATSAPP_NUMBER && (
                 <a
                   className="is-secondary"
@@ -135,9 +167,10 @@ function MayoristasPage() {
           <div className="wholesale-highlight">
             <strong>10+</strong>
             <span>prendas por pedido</span>
+
             <p>
-              Cotización personalizada según cantidad, prenda, diseño y
-              complejidad.
+              Cotización personalizada según cantidad,
+              prenda, diseño y complejidad.
             </p>
           </div>
         </section>
@@ -145,15 +178,23 @@ function MayoristasPage() {
         <section className="wholesale-section">
           <div className="wholesale-section-head">
             <span>PARA QUIÉN ES</span>
+
             <h2>
-              Producción personalizada para grupos, marcas y organizaciones.
+              Producción personalizada para grupos,
+              marcas y organizaciones.
             </h2>
           </div>
 
           <div className="wholesale-categories">
             {CATEGORIAS.map((categoria, index) => (
-              <article className="wholesale-category-card" key={categoria.titulo}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
+              <article
+                className="wholesale-category-card"
+                key={categoria.titulo}
+              >
+                <span>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
                 <h3>{categoria.titulo}</h3>
                 <p>{categoria.texto}</p>
               </article>
@@ -164,27 +205,45 @@ function MayoristasPage() {
         <section className="wholesale-examples-section">
           <div className="wholesale-section-head">
             <span>EJEMPLOS DE TRABAJOS</span>
-            <h2>Ideas para imaginar cómo puede quedar tu pedido.</h2>
+
+            <h2>
+              Ideas para imaginar cómo puede quedar tu pedido.
+            </h2>
+
             <p>
-              Cada diseño puede adaptarse a los colores, logos, nombres y estilo
-              de tu grupo o marca.
+              Cada diseño puede adaptarse a los colores,
+              logos, nombres y estilo de tu grupo o marca.
             </p>
           </div>
 
           <div className="wholesale-examples-grid">
             {CATEGORIAS.map((categoria) => (
-              <article className="wholesale-example-card" key={categoria.titulo}>
+              <article
+                className="wholesale-example-card"
+                key={categoria.titulo}
+              >
                 <div className="wholesale-example-image">
-                  <img src={categoria.imagen} alt={`Ejemplo ${categoria.titulo}`} />
+                  <img
+                    src={categoria.imagen}
+                    alt={`Ejemplo ${categoria.titulo}`}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
 
                 <div className="wholesale-example-content">
-                  <span>TINTAVIVA · MAYORISTAS</span>
+                  <span>
+                    TINTAVIVA · MAYORISTAS
+                  </span>
+
                   <h3>{categoria.titulo}</h3>
                   <p>{categoria.texto}</p>
+
                   <button
                     type="button"
-                    onClick={() => elegirCategoria(categoria.titulo)}
+                    onClick={() =>
+                      elegirCategoria(categoria.titulo)
+                    }
                   >
                     Pedir presupuesto →
                   </button>
@@ -198,28 +257,44 @@ function MayoristasPage() {
           <div>
             <span>01</span>
             <h3>Contanos la idea</h3>
-            <p>Tipo de prenda, cantidad, diseño y fecha estimada.</p>
+            <p>
+              Tipo de prenda, cantidad, diseño y fecha estimada.
+            </p>
           </div>
+
           <div>
             <span>02</span>
             <h3>Te cotizamos</h3>
-            <p>Armamos una propuesta según volumen y personalización.</p>
+            <p>
+              Armamos una propuesta según volumen y personalización.
+            </p>
           </div>
+
           <div>
             <span>03</span>
             <h3>Producimos</h3>
-            <p>Confirmado el pedido, coordinamos producción y entrega.</p>
+            <p>
+              Confirmado el pedido, coordinamos producción y entrega.
+            </p>
           </div>
         </section>
 
-        <section className="wholesale-quote" id="presupuesto">
+        <section
+          className="wholesale-quote"
+          id="presupuesto"
+        >
           <div className="wholesale-quote-copy">
             <span>PRESUPUESTO</span>
-            <h2>Contanos qué necesitás.</h2>
+
+            <h2>
+              Contanos qué necesitás.
+            </h2>
+
             <p>
-              La cotización cambia según cantidad, prenda, impresión y
-              complejidad del diseño.
+              La cotización cambia según cantidad,
+              prenda, impresión y complejidad del diseño.
             </p>
+
             <div className="wholesale-ranges">
               <span>10–24 prendas</span>
               <span>25–49 prendas</span>
@@ -228,93 +303,173 @@ function MayoristasPage() {
             </div>
           </div>
 
-          <form className="wholesale-form" onSubmit={enviarPresupuesto}>
+          <form
+            className="wholesale-form"
+            onSubmit={enviarPresupuesto}
+          >
             <div className="wholesale-form-grid">
               <label>
                 Nombre
+
                 <input
+                  type="text"
                   value={form.nombre}
-                  onChange={(e) => setForm({ ...form, nombre: e.target.value })}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      nombre: e.target.value,
+                    })
+                  }
                   required
                 />
               </label>
 
               <label>
                 Empresa / grupo
+
                 <input
+                  type="text"
                   value={form.empresa}
-                  onChange={(e) => setForm({ ...form, empresa: e.target.value })}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      empresa: e.target.value,
+                    })
+                  }
                   placeholder="Ej.: Promo 2026, Restaurante X"
                 />
               </label>
 
               <label>
                 Tipo de pedido
+
                 <select
                   value={form.tipo}
-                  onChange={(e) => setForm({ ...form, tipo: e.target.value })}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      tipo: e.target.value,
+                    })
+                  }
                 >
                   {CATEGORIAS.map((categoria) => (
-                    <option key={categoria.titulo}>{categoria.titulo}</option>
+                    <option
+                      key={categoria.titulo}
+                      value={categoria.titulo}
+                    >
+                      {categoria.titulo}
+                    </option>
                   ))}
-                  <option>Otro</option>
+
+                  <option value="Otro">
+                    Otro
+                  </option>
                 </select>
               </label>
 
               <label>
                 Cantidad aproximada
+
                 <select
                   value={form.cantidad}
                   onChange={(e) =>
-                    setForm({ ...form, cantidad: e.target.value })
+                    setForm({
+                      ...form,
+                      cantidad: e.target.value,
+                    })
                   }
                 >
-                  <option>10-24</option>
-                  <option>25-49</option>
-                  <option>50-99</option>
-                  <option>100+</option>
+                  <option value="10-24">
+                    10-24
+                  </option>
+
+                  <option value="25-49">
+                    25-49
+                  </option>
+
+                  <option value="50-99">
+                    50-99
+                  </option>
+
+                  <option value="100+">
+                    100+
+                  </option>
                 </select>
               </label>
 
               <label>
                 Prenda
+
                 <select
                   value={form.prenda}
-                  onChange={(e) => setForm({ ...form, prenda: e.target.value })}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      prenda: e.target.value,
+                    })
+                  }
                 >
-                  <option>Remeras</option>
-                  <option>Buzos</option>
-                  <option>Remeras + buzos</option>
-                  <option>A definir</option>
+                  <option value="Remeras">
+                    Remeras
+                  </option>
+
+                  <option value="Buzos">
+                    Buzos
+                  </option>
+
+                  <option value="Remeras + buzos">
+                    Remeras + buzos
+                  </option>
+
+                  <option value="A definir">
+                    A definir
+                  </option>
                 </select>
               </label>
 
               <label>
                 Fecha estimada
+
                 <input
-                  type="date"
+                  type="text"
                   value={form.fecha}
-                  onChange={(e) => setForm({ ...form, fecha: e.target.value })}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      fecha: e.target.value,
+                    })
+                  }
+                  placeholder="Ej.: 15/09/2026, primera semana de octubre"
                 />
               </label>
 
               <label>
                 Email
+
                 <input
                   type="email"
                   value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      email: e.target.value,
+                    })
+                  }
                   required
                 />
               </label>
 
               <label>
                 WhatsApp
+
                 <input
                   type="tel"
                   value={form.whatsapp}
                   onChange={(e) =>
-                    setForm({ ...form, whatsapp: e.target.value })
+                    setForm({
+                      ...form,
+                      whatsapp: e.target.value,
+                    })
                   }
                   placeholder="Ej.: 11 1234 5678"
                 />
@@ -323,30 +478,55 @@ function MayoristasPage() {
 
             <label>
               Contanos tu idea
+
               <textarea
                 rows={5}
                 value={form.detalle}
-                onChange={(e) => setForm({ ...form, detalle: e.target.value })}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    detalle: e.target.value,
+                  })
+                }
                 placeholder="Colores, estampas, ubicación, logos, cantidades por talle..."
               />
             </label>
 
-            <button type="submit">Solicitar presupuesto por WhatsApp</button>
+            <button type="submit">
+              Solicitar presupuesto por WhatsApp
+            </button>
           </form>
         </section>
       </main>
 
       <footer className="wholesale-footer">
         <div>
-          <img src="/logo-tintaviva.png" alt="TintaViva" />
-          <p>Diseñá. Vestilo. Hacelo tuyo.</p>
+          <img
+            src="/logo-tintaviva.png"
+            alt="TintaViva"
+          />
+
+          <p>
+            Diseñá. Vestilo. Hacelo tuyo.
+          </p>
         </div>
 
         <nav>
-          <a href="/">Tienda</a>
-          <a href="/terminos">Términos</a>
-          <a href="/privacidad">Privacidad</a>
-          <a href="/cambios-devoluciones">Cambios y devoluciones</a>
+          <a href="/">
+            Tienda
+          </a>
+
+          <a href="/terminos">
+            Términos
+          </a>
+
+          <a href="/privacidad">
+            Privacidad
+          </a>
+
+          <a href="/cambios-devoluciones">
+            Cambios y devoluciones
+          </a>
         </nav>
       </footer>
     </div>
