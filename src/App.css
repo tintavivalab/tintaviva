@@ -12146,3 +12146,576 @@ select {
     justify-content: flex-start;
   }
 }
+
+
+/* =========================================================
+   SPRINT 2.8.4 — VENTAS MAYORISTAS Y CORPORATIVAS
+========================================================= */
+
+.wholesale-home {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 28px;
+  margin: 28px clamp(16px, 4vw, 56px);
+  padding: clamp(26px, 4vw, 48px);
+  border: 1px solid #151515;
+  border-radius: 24px;
+  background: #ffd83d;
+}
+
+.wholesale-home > div > span,
+.wholesale-section-head > span,
+.wholesale-quote-copy > span,
+.wholesale-kicker {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+}
+
+.wholesale-home h2,
+.wholesale-section-head h2,
+.wholesale-quote-copy h2 {
+  margin: 0;
+  font-size: clamp(30px, 5vw, 56px);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.wholesale-home p,
+.wholesale-hero p,
+.wholesale-quote-copy p {
+  color: #5d574d;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.wholesale-home-actions,
+.wholesale-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.wholesale-home-actions a,
+.wholesale-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 17px;
+  border: 1px solid #151515;
+  border-radius: 999px;
+  background: #151515;
+  color: #fff;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.wholesale-home-actions a.is-secondary,
+.wholesale-actions a.is-secondary {
+  background: transparent;
+  color: #151515;
+}
+
+.wholesale-home-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  align-content: center;
+}
+
+.wholesale-home-grid span {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  padding: 0 16px;
+  border: 1px solid #151515;
+  border-radius: 14px;
+  background: #fff7e8;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.wholesale-page {
+  min-height: 100vh;
+  background: #fff7e8;
+  color: #151515;
+}
+
+.wholesale-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 70px;
+  padding: 8px clamp(18px, 5vw, 64px);
+  border-bottom: 1px solid rgba(21,21,21,.14);
+  background: rgba(255,247,232,.94);
+  backdrop-filter: blur(10px);
+}
+
+.wholesale-brand img {
+  width: 78px;
+  height: auto;
+  display: block;
+}
+
+.wholesale-back {
+  color: #151515;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.wholesale-hero {
+  display: grid;
+  grid-template-columns: 1.3fr .7fr;
+  gap: 28px;
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 72px 0 54px;
+}
+
+.wholesale-kicker {
+  color: #4169ff;
+}
+
+.wholesale-hero h1 {
+  margin: 0;
+  font-size: clamp(42px, 7vw, 84px);
+  line-height: .93;
+  letter-spacing: -.055em;
+}
+
+.wholesale-highlight {
+  align-self: end;
+  padding: 28px;
+  border: 1px solid #151515;
+  border-radius: 22px;
+  background: #4169ff;
+  color: #fff;
+}
+
+.wholesale-highlight strong {
+  display: block;
+  font-size: clamp(58px, 8vw, 92px);
+  line-height: .9;
+  letter-spacing: -.06em;
+}
+
+.wholesale-highlight span {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.wholesale-highlight p {
+  color: rgba(255,255,255,.82);
+  font-size: 12px;
+}
+
+.wholesale-section,
+.wholesale-process,
+.wholesale-quote {
+  width: min(1180px, calc(100% - 32px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wholesale-section {
+  padding: 40px 0 68px;
+}
+
+.wholesale-section-head {
+  max-width: 760px;
+  margin-bottom: 28px;
+}
+
+.wholesale-section-head > span,
+.wholesale-quote-copy > span {
+  color: #ff654f;
+}
+
+.wholesale-categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.wholesale-category-card {
+  padding: 22px;
+  border: 1px solid #151515;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.wholesale-category-card > span {
+  color: #4169ff;
+  font-size: 10px;
+  font-weight: 950;
+}
+
+.wholesale-category-card h3 {
+  margin: 36px 0 8px;
+  font-size: 19px;
+}
+
+.wholesale-category-card p {
+  margin: 0;
+  color: #625d54;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.wholesale-process {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 68px;
+  border: 1px solid #151515;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #151515;
+}
+
+.wholesale-process > div {
+  padding: 26px;
+  color: #fff7e8;
+}
+
+.wholesale-process > div + div {
+  border-left: 1px solid rgba(255,247,232,.22);
+}
+
+.wholesale-process span {
+  color: #ffd83d;
+  font-size: 10px;
+  font-weight: 950;
+}
+
+.wholesale-process h3 {
+  margin: 28px 0 8px;
+}
+
+.wholesale-process p {
+  margin: 0;
+  color: rgba(255,247,232,.65);
+  font-size: 12px;
+}
+
+.wholesale-quote {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 28px;
+  padding-bottom: 84px;
+}
+
+.wholesale-ranges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 22px;
+}
+
+.wholesale-ranges span {
+  padding: 8px 11px;
+  border: 1px solid #151515;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.wholesale-form {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid #151515;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.wholesale-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.wholesale-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.wholesale-form input,
+.wholesale-form select,
+.wholesale-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cfc8bc;
+  border-radius: 10px;
+  background: #fffdf8;
+  color: #151515;
+  font: inherit;
+  font-size: 13px;
+}
+
+.wholesale-form input,
+.wholesale-form select {
+  min-height: 44px;
+  padding: 0 11px;
+}
+
+.wholesale-form textarea {
+  min-height: 120px;
+  padding: 11px;
+  resize: vertical;
+}
+
+.wholesale-form button {
+  justify-self: start;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 10px;
+  background: #25d366;
+  color: #102417;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+@media (max-width: 820px) {
+  .wholesale-home,
+  .wholesale-hero,
+  .wholesale-quote {
+    grid-template-columns: 1fr;
+  }
+
+  .wholesale-categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .wholesale-process {
+    grid-template-columns: 1fr;
+  }
+
+  .wholesale-process > div + div {
+    border-left: 0;
+    border-top: 1px solid rgba(255,247,232,.22);
+  }
+}
+
+@media (max-width: 560px) {
+  .wholesale-home {
+    margin-inline: 12px;
+  }
+
+  .wholesale-home-grid,
+  .wholesale-categories,
+  .wholesale-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wholesale-hero {
+    padding-top: 44px;
+  }
+}
+
+/* =========================================================
+   AJUSTE FINAL — TIPOGRAFÍA GENERAL + MAYORISTAS
+========================================================= */
+
+/* Base general un poco más grande y legible */
+html {
+  font-size: 17px;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Textos generales */
+p,
+li,
+label,
+input,
+select,
+textarea,
+button,
+a {
+  font-size: 1rem;
+}
+
+/* Navegación */
+nav a,
+header a,
+header button {
+  font-size: 0.92rem;
+}
+
+/* Botones */
+button,
+.button,
+a.button,
+.wholesale-home-actions a,
+.wholesale-actions a {
+  font-size: 0.95rem;
+}
+
+/* Formularios */
+input,
+select,
+textarea {
+  font-size: 0.95rem;
+}
+
+/* Textos auxiliares */
+small,
+.section-label,
+.product-color-count,
+.product-price-block span,
+.admin-panel-label,
+.wholesale-kicker,
+.wholesale-section-head > span,
+.wholesale-quote-copy > span {
+  font-size: 0.78rem;
+}
+
+/* Footer */
+footer,
+footer a,
+footer p {
+  font-size: 0.88rem;
+}
+
+/* =========================================
+   MAYORISTAS — MÁS COMPACTO Y LEGIBLE
+========================================= */
+
+.wholesale-home {
+  gap: 34px;
+  padding: 42px 58px;
+}
+
+.wholesale-home p {
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 650px;
+}
+
+.wholesale-home > div > span {
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+}
+
+/* Mantener el título protagonista */
+.wholesale-home h2 {
+  font-size: clamp(42px, 5vw, 66px);
+  line-height: 0.98;
+}
+
+/* Cuadros más bajos y menos vacíos */
+.wholesale-home-grid {
+  gap: 12px;
+  align-content: center;
+}
+
+.wholesale-home-grid span {
+  min-height: 54px;
+  padding: 0 18px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+}
+
+/* Botones un poco más cómodos */
+.wholesale-home-actions a {
+  min-height: 48px;
+  padding: 0 20px;
+  font-size: 0.88rem;
+}
+
+/* Página /mayoristas */
+.wholesale-section-head > span,
+.wholesale-quote-copy > span,
+.wholesale-kicker {
+  font-size: 0.78rem;
+}
+
+.wholesale-section-head h2,
+.wholesale-quote-copy h2 {
+  font-size: clamp(38px, 5vw, 60px);
+}
+
+.wholesale-category-card {
+  padding: 20px;
+}
+
+.wholesale-category-card h3 {
+  margin-top: 24px;
+  font-size: 1.18rem;
+}
+
+.wholesale-category-card p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.wholesale-process h3 {
+  font-size: 1.15rem;
+}
+
+.wholesale-process p {
+  font-size: 0.9rem;
+}
+
+.wholesale-form label {
+  font-size: 0.88rem;
+}
+
+.wholesale-form input,
+.wholesale-form select,
+.wholesale-form textarea {
+  font-size: 0.92rem;
+}
+
+.wholesale-form button {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 820px) {
+  html {
+    font-size: 16.5px;
+  }
+
+  .wholesale-home {
+    padding: 32px 28px;
+  }
+}
+
+@media (max-width: 560px) {
+  html {
+    font-size: 16px;
+  }
+
+  .wholesale-home {
+    padding: 28px 20px;
+  }
+
+  .wholesale-home-grid span {
+    min-height: 50px;
+  }
+}

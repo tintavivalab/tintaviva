@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
+import MayoristasPage from "./Mayoristas";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
@@ -2181,6 +2182,37 @@ function Admin({ adminActual }) {
 
 
 
+
+function WholesaleHomeSection() {
+  return (
+    <section className="wholesale-home">
+      <div>
+        <span>VENTAS MAYORISTAS</span>
+        <h2>TintaViva para equipos, negocios y eventos.</h2>
+        <p>
+          Pedidos por cantidad para egresados, empresas,
+          restaurantes, supermercados, clubes y más.
+        </p>
+        <div className="wholesale-home-actions">
+          <a href="/mayoristas">Ver opciones mayoristas ↗</a>
+          <a href="/mayoristas#presupuesto" className="is-secondary">
+            Pedir presupuesto
+          </a>
+        </div>
+      </div>
+
+      <div className="wholesale-home-grid">
+        <span>Egresados</span>
+        <span>Empresas</span>
+        <span>Gastronomía</span>
+        <span>Comercios</span>
+        <span>Eventos</span>
+        <span>Clubes</span>
+      </div>
+    </section>
+  );
+}
+
 function LegalLayout({
   eyebrow,
   title,
@@ -2813,6 +2845,10 @@ function WhatsAppButton() {
 
 function App() {
   const pathname = window.location.pathname;
+
+  if (pathname === "/mayoristas") {
+    return <MayoristasPage />;
+  }
 
   if (pathname === "/terminos") {
     return <TerminosPage />;
@@ -3700,34 +3736,12 @@ function App() {
     });
   };
 
-  const tienePersonalizacionVisible = (lado) => {
-    const diseno = personalizaciones[lado] || {};
-    const capasLado = capas?.[lado] || {};
-
-    const tieneImagen =
-      Boolean(diseno.imagen) && capasLado?.imagen?.visible !== false;
-
-    const tieneTexto =
-      Boolean(diseno.texto?.contenido?.trim()) &&
-      capasLado?.texto?.visible !== false;
-
-    return tieneImagen || tieneTexto;
-  };
-
-  const tieneDobleEstampa =
-    tienePersonalizacionVisible("frente") &&
-    tienePersonalizacionVisible("espalda");
-
-  const precioPersonalizadoActual = productoSeleccionado
-    ? tieneDobleEstampa
-      ? Math.round((productoSeleccionado.precio * 1.2) / 10) * 10
-      : productoSeleccionado.precio
-    : 0;
-
   const agregarAlCarrito = () => {
     const tieneDiseno =
-      tienePersonalizacionVisible("frente") ||
-      tienePersonalizacionVisible("espalda");
+      Boolean(personalizaciones.frente.imagen) ||
+      Boolean(personalizaciones.espalda.imagen) ||
+      Boolean(personalizaciones.frente.texto?.contenido.trim()) ||
+      Boolean(personalizaciones.espalda.texto?.contenido.trim());
 
     if (
       !productoSeleccionado ||
@@ -3754,7 +3768,7 @@ function App() {
           "espalda"
         ),
       },
-      precio: precioPersonalizadoActual,
+      precio: productoSeleccionado.precio,
       color: colorSeleccionado,
       talle: talleSeleccionado,
       disenos: {
@@ -5977,15 +5991,9 @@ function App() {
 
               <div className="detail-price">
                 {formatearPrecio(
-                  modoPersonalizar
-                    ? precioPersonalizadoActual
-                    : productoSeleccionado.precio
+                  productoSeleccionado.precio
                 )}
               </div>
-
-              {modoPersonalizar && tieneDobleEstampa && (
-                <p className="product-help">Frente + espalda · +20%</p>
-              )}
 
               <div className="product-option">
                 <div className="option-title">
@@ -6316,6 +6324,8 @@ function App() {
           </div>
         </section>
 
+        <WholesaleHomeSection />
+
         <section className="custom-section">
           <div>
             <span>
@@ -6363,6 +6373,9 @@ function App() {
           </a>
           <a href="/envios">
             Envíos y retiros
+          </a>
+          <a href="/mayoristas">
+            Ventas mayoristas
           </a>
           <a
             href="/arrepentimiento"
