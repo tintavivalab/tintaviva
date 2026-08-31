@@ -14,6 +14,12 @@ const muestras = [
       "Diseño artístico en negro, blanco y naranja con una estética moderna y urbana.",
     imagenFrente: "/muestras/abstract-face-frente.png",
   },
+  {
+    titulo: "Ansiedad",
+    descripcion:
+      "Diseño expresivo en tonos naranja, blanco y amarillo sobre remera gris.",
+    imagenFrente: "/muestras/ansiedad.png",
+  },
 ];
 
 export default function Muestras({ onVolver }) {
@@ -82,9 +88,7 @@ export default function Muestras({ onVolver }) {
         <div className="muestras-pasos">
           <article className="muestras-paso">
             <span>01</span>
-
             <h3>Elegí la prenda</h3>
-
             <p>
               Remera clásica, oversize, buzo canguro o crewneck.
             </p>
@@ -92,9 +96,7 @@ export default function Muestras({ onVolver }) {
 
           <article className="muestras-paso">
             <span>02</span>
-
             <h3>Elegí una idea</h3>
-
             <p>
               Inspirate en nuestras muestras o mandanos tu propio diseño.
             </p>
@@ -102,9 +104,7 @@ export default function Muestras({ onVolver }) {
 
           <article className="muestras-paso">
             <span>03</span>
-
             <h3>Personalizá</h3>
-
             <p>
               Ajustá tamaño, ubicación y estilo para que quede como querés.
             </p>
@@ -112,9 +112,7 @@ export default function Muestras({ onVolver }) {
 
           <article className="muestras-paso">
             <span>04</span>
-
             <h3>Hacé tu pedido</h3>
-
             <p>
               Confirmá tu diseño y coordiná la producción de tu prenda.
             </p>

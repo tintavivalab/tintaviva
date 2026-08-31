@@ -40,9 +40,7 @@
   opacity: 0.65;
 }
 
-/* ============================= */
 /* HERO */
-/* ============================= */
 
 .muestras-hero {
   max-width: 850px;
@@ -97,9 +95,7 @@
   opacity: 0.9;
 }
 
-/* ============================= */
 /* CÓMO FUNCIONA */
-/* ============================= */
 
 .muestras-como-funciona {
   max-width: 1180px;
@@ -172,9 +168,7 @@
   line-height: 1.55;
 }
 
-/* ============================= */
 /* GALERÍA */
-/* ============================= */
 
 .muestras-contenido {
   max-width: 1180px;
@@ -256,7 +250,8 @@
   transform: scale(1.025);
 }
 
-.muestra-imagenes-simple .muestra-imagen-item img {
+.muestra-imagenes-simple
+  .muestra-imagen-item img {
   aspect-ratio: 16 / 11;
   object-fit: contain;
   background: #f7f7f7;
@@ -298,9 +293,7 @@
   background: #ffcf00;
 }
 
-/* ============================= */
 /* CTA */
-/* ============================= */
 
 .muestras-cta {
   max-width: 1100px;
@@ -339,9 +332,7 @@
   transform: translateY(-2px);
 }
 
-/* ============================= */
 /* FOOTER */
-/* ============================= */
 
 .muestras-footer {
   display: flex;
@@ -358,9 +349,7 @@
   font-weight: 900;
 }
 
-/* ============================= */
 /* RESPONSIVE */
-/* ============================= */
 
 @media (max-width: 900px) {
   .muestras-pasos {
