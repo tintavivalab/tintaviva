@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
+import Muestras from "./Muestras";
 
 function App() {
   const productos = [
@@ -434,6 +435,7 @@ function App() {
           <a href="#inicio">Inicio</a>
           <a href="#productos">Productos</a>
           <a href="#como-funciona">Cómo funciona</a>
+          <a href="/muestras">Muestras</a>
         </nav>
       )}
 
@@ -605,6 +607,20 @@ function App() {
       </div>
     );
   };
+
+  /* ================================= */
+  /* MUESTRAS */
+  /* ================================= */
+
+  if (window.location.pathname === "/muestras") {
+    return (
+      <Muestras
+        onVolver={() => {
+          window.location.href = "/";
+        }}
+      />
+    );
+  }
 
   /* ================================= */
   /* PERSONALIZADOR */
