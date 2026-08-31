@@ -2,18 +2,17 @@ import "./Muestras.css";
 
 const muestras = [
   {
-    titulo: "Crazy Cat",
+    titulo: "Gato Loco",
     descripcion:
       "Diseño ilustrado en blanco y negro con frente y espalda complementarios.",
-    imagenFrente: "/muestras/gato.png",
-    imagenEspalda: "/muestras/gatoespalda.png",
+    imagenFrente: "/muestras/gato-loco-frente.png",
+    imagenEspalda: "/muestras/gato-loco-espalda.png",
   },
-
   {
     titulo: "Abstract Face",
     descripcion:
       "Diseño artístico en negro, blanco y naranja con una estética moderna y urbana.",
-    imagenFrente: "/muestras/abstract.png",
+    imagenFrente: "/muestras/abstract-face-frente.png",
   },
 ];
 
@@ -68,7 +67,67 @@ export default function Muestras({ onVolver }) {
         </a>
       </section>
 
+      <section className="muestras-como-funciona">
+        <div className="muestras-como-header">
+          <span>CÓMO FUNCIONA</span>
+
+          <h2>De la idea a tu prenda.</h2>
+
+          <p>
+            Elegí una muestra, inspirate o traé tu propio diseño.
+            Nosotros te ayudamos a convertirlo en una prenda única.
+          </p>
+        </div>
+
+        <div className="muestras-pasos">
+          <article className="muestras-paso">
+            <span>01</span>
+
+            <h3>Elegí la prenda</h3>
+
+            <p>
+              Remera clásica, oversize, buzo canguro o crewneck.
+            </p>
+          </article>
+
+          <article className="muestras-paso">
+            <span>02</span>
+
+            <h3>Elegí una idea</h3>
+
+            <p>
+              Inspirate en nuestras muestras o mandanos tu propio diseño.
+            </p>
+          </article>
+
+          <article className="muestras-paso">
+            <span>03</span>
+
+            <h3>Personalizá</h3>
+
+            <p>
+              Ajustá tamaño, ubicación y estilo para que quede como querés.
+            </p>
+          </article>
+
+          <article className="muestras-paso">
+            <span>04</span>
+
+            <h3>Hacé tu pedido</h3>
+
+            <p>
+              Confirmá tu diseño y coordiná la producción de tu prenda.
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section className="muestras-contenido">
+        <div className="muestras-titulo-galeria">
+          <span>DISEÑOS</span>
+          <h2>Encontrá tu inspiración.</h2>
+        </div>
+
         <div className="muestras-grid">
           {muestras.map((item) => (
             <article
@@ -124,7 +183,7 @@ export default function Muestras({ onVolver }) {
 
         <p>
           Mandanos tu diseño, referencia o idea y te
-          ayudamos a crearla.
+          ayudamos a convertirla en una prenda TintaViva.
         </p>
 
         <button
