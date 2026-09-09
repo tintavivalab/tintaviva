@@ -6,11 +6,15 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
 const pool = require("./db");
+
 const pedidosRoutes = require("./routes/pedidos");
 const adminAuthRoutes = require("./routes/adminAuth");
+const mercadoPagoRoutes = require("./routes/mercadopago");
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+
+const PORT =
+  process.env.PORT || 4000;
 
 const jwtSecret =
   process.env.JWT_SECRET || "";
@@ -19,9 +23,7 @@ const jwtSecret =
    VALIDACIÓN JWT SECRET
 ========================================================= */
 
-if (
-  jwtSecret.length < 32
-) {
+if (jwtSecret.length < 32) {
   console.error(
     "❌ JWT_SECRET debe tener al menos 32 caracteres."
   );
@@ -33,9 +35,7 @@ if (
    SEGURIDAD GENERAL
 ========================================================= */
 
-app.disable(
-  "x-powered-by"
-);
+app.disable("x-powered-by");
 
 app.use(
   helmet({
@@ -70,6 +70,11 @@ const origenesPermitidos =
     )
     .filter(Boolean);
 
+console.log(
+  "🌐 Orígenes permitidos:",
+  origenesPermitidos.join(", ")
+);
+
 app.use(
   cors({
     origin(
@@ -77,11 +82,18 @@ app.use(
       callback
     ) {
       /*
-        Permite requests sin origin
-        como Postman / navegador directo.
+        Permite solicitudes sin Origin:
+        Postman, PowerShell, health checks, etc.
       */
+
+      if (!origin) {
+        return callback(
+          null,
+          true
+        );
+      }
+
       if (
-        !origin ||
         origenesPermitidos.includes(
           origin
         )
@@ -91,6 +103,11 @@ app.use(
           true
         );
       }
+
+      console.warn(
+        "⚠️ Origen bloqueado por CORS:",
+        origin
+      );
 
       return callback(
         new Error(
@@ -102,7 +119,9 @@ app.use(
     methods: [
       "GET",
       "POST",
+      "PUT",
       "PATCH",
+      "DELETE",
       "OPTIONS",
     ],
 
@@ -110,6 +129,8 @@ app.use(
       "Content-Type",
       "Authorization",
     ],
+
+    credentials: false,
   })
 );
 
@@ -123,8 +144,15 @@ app.use(
   })
 );
 
+app.use(
+  express.urlencoded({
+    extended: true,
+    limit: "1mb",
+  })
+);
+
 /* =========================================================
-   RATE LIMIT LOGIN / REGISTRO
+   RATE LIMIT LOGIN
 ========================================================= */
 
 const authLimiter =
@@ -175,11 +203,31 @@ app.use(
 );
 
 /* =========================================================
+   RUTA PRINCIPAL
+========================================================= */
+
+app.get(
+  "/",
+  (_req, res) => {
+    return res.json({
+      ok: true,
+      service:
+        "TintaViva API",
+      version:
+        "1.0.0",
+      message:
+        "TintaViva API funcionando.",
+    });
+  }
+);
+
+/* =========================================================
    HEALTH
 ========================================================= */
 
 app.get(
   "/api/health",
+
   async (
     _req,
     res,
@@ -191,10 +239,26 @@ app.get(
       );
 
       return res.json({
-        status: "ok",
+        ok: true,
+
+        status:
+          "ok",
+
         service:
           "TintaViva API",
-        database: "ok",
+
+        database:
+          "ok",
+
+        mercadopago:
+          process.env
+            .MERCADOPAGO_ACCESS_TOKEN
+            ? "configured"
+            : "not_configured",
+
+        timestamp:
+          new Date()
+            .toISOString(),
       });
     } catch (error) {
       next(error);
@@ -208,7 +272,9 @@ app.get(
 
 app.use(
   "/api/admin/auth",
+
   authLimiter,
+
   adminAuthRoutes
 );
 
@@ -238,6 +304,15 @@ app.use(
 */
 
 /* =========================================================
+   MERCADO PAGO
+========================================================= */
+
+app.use(
+  "/api/mercadopago",
+  mercadoPagoRoutes
+);
+
+/* =========================================================
    RUTA NO ENCONTRADA
 ========================================================= */
 
@@ -249,8 +324,16 @@ app.use(
     return res
       .status(404)
       .json({
+        ok: false,
+
         error:
           "Ruta no encontrada.",
+
+        method:
+          req.method,
+
+        path:
+          req.originalUrl,
       });
   }
 );
@@ -268,7 +351,7 @@ app.use(
   ) => {
     console.error(
       "❌ Error backend:",
-      error.message
+      error
     );
 
     if (
@@ -278,14 +361,22 @@ app.use(
       return res
         .status(403)
         .json({
+          ok: false,
+
           error:
             "Origen no autorizado.",
         });
     }
 
     return res
-      .status(500)
+      .status(
+        error.status ||
+        error.statusCode ||
+        500
+      )
       .json({
+        ok: false,
+
         error:
           process.env.NODE_ENV ===
           "production"
@@ -302,13 +393,45 @@ app.use(
 
 app.listen(
   PORT,
+
   () => {
     console.log(
-      `TintaViva API ejecutándose en http://localhost:${PORT}`
+      "=========================================="
+    );
+
+    console.log(
+      "        TINTAVIVA API ACTIVA"
+    );
+
+    console.log(
+      "=========================================="
+    );
+
+    console.log(
+      `🚀 Puerto: ${PORT}`
+    );
+
+    console.log(
+      `❤️ Health: http://localhost:${PORT}/api/health`
     );
 
     console.log(
       "🔐 Seguridad admin activa."
+    );
+
+    console.log(
+      "🛒 Pedidos activos."
+    );
+
+    console.log(
+      process.env
+        .MERCADOPAGO_ACCESS_TOKEN
+        ? "💳 Mercado Pago configurado."
+        : "⚠️ Mercado Pago todavía no tiene Access Token."
+    );
+
+    console.log(
+      "=========================================="
     );
   }
 );
